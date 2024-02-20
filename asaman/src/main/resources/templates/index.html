@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asaman</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="image-container1">
+        <a th:href="@{#}">
+            <img src="img/img1.jpg" alt="My Image1">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img2.jpg" alt="My Image2">
+        </a>
+        <br>
+        <a th:href="@{#}">
+            <img src="img/img3.jpg" alt="My Image3">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img4.jpg" alt="My Image4">
+        </a>
+    </div>
+    <div class="image-container2">
+        <a th:href="@{#}">
+            <img src="img/img5.jpg" alt="My Image5">
+        </a>
+        <br>
+    </div>
+    <div class="image-container1">
+        <a th:href="@{#}">
+            <img src="img/img6.jpg" alt="My Image6">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/image7.jpg" alt="My Image7">
+        </a>
+        <br>
+    </div>
+    <div class="image-container2">
+        <a th:href="@{#}">
+            <img src="img/img8.jpg" alt="My Image8">
+        </a>
+        <br>
+    </div>
+    <div class="image-container1">
+        <a th:href="@{#}">
+            <img src="img/img9.jpg" alt="My Image9">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img10.jpg" alt="My Image10">
+        </a>
+        <br>
+        <a th:href="@{#}">
+            <img src="img/image11.jpg" alt="My Image11">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img12.jpg" alt="My Image12">
+        </a>
+    </div>
+    <div class="image-container2">
+        <a th:href="@{#}">
+            <img src="img/img13.jpg" alt="My Image13">
+        </a>
+        <br>
+    </div>
+    <div class="image-container1">
+        <a th:href="@{#}">
+            <img src="img/img14.jpg" alt="My Image14">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img15.jpg" alt="My Image15">
+        </a>
+        <br>
+        <a th:href="@{#}">
+            <img src="img/img18.jpg" alt="My Image18">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img17.jpg" alt="My Image17">
+        </a>
+    </div>
+    <div class="image-container2">
+        <a th:href="@{#}">
+            <img src="img/img16.jpg" alt="My Image16">
+        </a>
+        <br>
+    </div>
+    <div class="image-container2">
+        <a th:href="@{#}">
+            <img src="img/img22.jpg" alt="My Image22">
+        </a>
+        <br>
+    </div>
+    <div class="image-container1">
+        <a th:href="@{#}">
+            <img src="img/img19.jpg" alt="My Image19">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img20.jpg" alt="My Image20">
+        </a>
+        <br>
+        <a th:href="@{#}">
+            <img src="img/img25.jpg" alt="My Image25">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img23.jpg" alt="My Image23">
+        </a>
+    </div>
+    <div class="image-container1">
+        <a th:href="@{#}">
+            <img src="img/img24.jpg" alt="My Image24">
+        </a>
+        <a th:href="@{#}">
+            <img src="img/img26.jpg" alt="My Image26">
+        </a>
+        <br>
+    </div>
+    <div class="image-container2">
+        <a th:href="@{#}">
+            <img src="img/img27.jpg" alt="My Image27">
+        </a>
+        <br>
+    </div>
+    <div class="popup" th:id="popup">
+        <img th:id="popupImg" th:src="" alt="Popup Image">
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var images = document.querySelectorAll(".image-container1 img, .image-container2 img");
+
+            images.forEach(function(img) {
+                img.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    
+                    var popup = document.getElementById("popup");
+                    var popupImg = document.getElementById("popupImg");
+
+                    popupImg.src = this.src;
+                    popup.style.display = "flex";
+                });
+            });
+
+            var popup = document.getElementById("popup");
+            popup.addEventListener("click", function() {
+                this.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
