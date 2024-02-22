@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 
-    @GetMapping("/index")
+    @GetMapping
     public String indexPage() {
-        return "index";
+        return "home";
     }
     
-    @GetMapping("/join")
+    @GetMapping
     public String joinPage() {
         return "join";
     }
