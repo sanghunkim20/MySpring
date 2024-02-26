@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.dto.ItemDto;
 
@@ -72,5 +73,17 @@ public class ThymeleafExController {
 
         model.addAttribute("itemDtoList", itemDtoList);
         return "thymeleafEx/thymeleafEx04";
+    }
+
+    @GetMapping(value = "/ex05")
+    public String thymeleafExample05() {
+        return "thymeleafEx/thymeleafEx05";
+    }
+
+    @GetMapping(value = "/ex06")
+    public String thymeleafExample06(@RequestParam(name = "param1")String param1, @RequestParam(name = "param2")String param2, Model model) {
+        model.addAttribute("param1", param1);
+        model.addAttribute("param2", param2);
+        return "thymeleafEx/thymeleafEx06";
     }
 }
