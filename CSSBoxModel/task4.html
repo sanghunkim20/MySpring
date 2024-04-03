@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #header{
+      text-align: center;
+    }
+    #nav0 {
+      border: 2px solid red;
+    }
+    ul li {
+      font-size: large;
+      display: inline-block;
+      padding-left: 60px;
+    }
+    a:link {
+      text-decoration: none;
+      color: black;
+    }
+    li:hover {
+      text-decoration: underline;
+    }
+    #p1 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    #p2 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    #static2 {
+      display:inline-block;
+      margin-left: 10px;
+      position: static;
+
+    }
+    #static3 {
+      display: inline-block;
+      position: static;
+    }
+    #content {
+      margin-top:0px;
+      text-align: center;
+      position: static;
+      background-color: lightgoldenrodyellow;
+    }
+    #Schedule {
+      margin-top:0px;
+      text-align: center;
+      position: static;
+      background-color: greenyellow;
+    }
+    #More {
+      margin-top:0px;
+      text-align: center;
+      position: static;
+      background-color: lightcoral;
+    }
+    #fixed_box {
+      position: fixed;
+      width:30px;
+      height: 30px;
+      background-color: yellow;
+      border: 2px solid black;
+      padding: 10px;
+      top:90%;
+      left:90%;
+    }
+    #footer {
+      margin-top:0px;
+      text-align: center;
+      position: static;
+      background-color: orange;
+      clear:both;
+    }
+    p {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  </style>
+  <title>Task4</title>
+</head>
+<body>
+  <div id="header">
+    <h1>My Homepage</h1>
+    <nav id="nav0">
+      <ul>
+        <li><a href="#header">HOME</a></li>
+        <li><a href="#static2">INTRODUCE</a></li>
+        <li><a href="#content">CONTENT</a></li>
+        <li><a href="#Schedule">SCHEDULE</a></li>
+        <li><a href="#More"">MORE</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div id="static2">
+    <img src="img/back2.jpg" alt="back2" width="200px" height="200px">
+  </div>
+  <div id="static3">
+    <p><a id="p1">Introduce</a></p>
+    <p>Hello My name is Sanghun Kim</p>
+    <p>My major is computer science</p>
+    <p>My number is 2020039095</p>
+    <p>My hobby is work out</p>
+  </div>
+  <div id="content">
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+      <p>Content</p>
+  </div>
+  <div id="Schedule">
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>
+    <p>Schedule</p>  
+  </div>
+  <div id="More">
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+    <p>More</p>
+  </div>
+  <div id="fixed_box"><a href="#header">UP</a></div>
+  <div id="footer">
+    <p>2023-01 Web Programming</p>
+  </div>
+</body>
+</html>
