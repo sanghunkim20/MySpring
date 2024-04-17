@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array</title>
+</head>
+<body>
+  <script>
+    var stack = [];
+    function show_Stack() {
+      var i = 0;
+      for(i = 0; i < stack.length; i++) {
+        document.write(stack[i] + "<br>");
+      }
+    }
+  </script>
+  <a>input: <input type="text" id="input_value"></a>
+  <button type="button" onclick="stack.push(document.getElementById('input_value').value)">stack</button>
+  <br>
+  <br>
+  <button type="button" onclick="show_Stack()">Show</button>
+</body>  
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>function</title>
+</head>
+<body>
+  <h1 id="tartget"></h1>
+  <br>
+  <br>
+  <script>
+    function square(number) {
+      return number * number;
+    }
+    function half(number) {
+      return number / 2;
+    }
+    function percent(number1, number2) {
+      return number1 / number2 * 100;
+    }
+    function area_of_circle(number) {
+      return Math.PI * square(number);
+    }
+    document.getElementById("tartget").innerHTML = "JavaSCript function";
+    document.write("The square of 3 is " + square(3) + "<br>");
+    document.write("The half of 5 is " + half(5) + "<br>");
+    document.write("5 is 50% of " + percent(5, 50) + "<br>");
+    document.write("The result of squaring the number 2 is ", square(2) + "<br>");
+    document.write("The area of circle with radius 2 is " + area_of_circle(2) + "<br>");
+    document.write("<br>");
+    document.write("Do Crazy stuff<br>");
+    document.write("Half of 5 is " + half(5) + "<br>");
+    document.write("The result of squaring the number 2.5 is "+ square(2.5) + "<br>");
+    document.write("The result of squaring the number 6.25 is "+ square(.625) + "<br>");
+    document.write("The area of circle with radius 6.25 is " + area_of_circle(6.25) + "<br>");
+    document.write("6.25 is 5.092958178940651% of "+ percent(6.25, 5.092958178940651) + "<br>");
+  </script>
+</body>
+</html>
