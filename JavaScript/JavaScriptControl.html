@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controls</title>
+</head>
+<body>
+  <h1 id="tartget"></h1>
+  <script>
+    document.getElementById("tartget").innerHTML = "JavaScript Controls";
+    document.write("<br>");
+    document.write("Numbers to humanize: <br><br>");
+    function hunamnized_number(number) {
+      if(number % 10 == 1) {
+        return number + "st<br>";
+      }
+      else if(number % 10 == 2) {
+        return number + "nd<br>"
+      }
+      else if(number % 10 == 3) {
+        return number + "rd<br>"
+      }
+      else {
+        return number + "th<br>"
+      }
+    }
+    document.write(hunamnized_number(1));
+    document.write(hunamnized_number(8));
+    document.write(hunamnized_number(301));
+    document.write(hunamnized_number(402));
+    document.write(hunamnized_number(711));
+  </script>
+</body>
+</html>
