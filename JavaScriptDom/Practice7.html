@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" onClick="myFunction()" value="Append">
+    <input type="button" onClick="myFunction1()" value="Delete">
+    <script>
+        function myFunction() {
+            const para = document.createElement("p");
+            const node = document.createTextNode("This is a paragraph.");
+
+            para.appendChild(node);
+            document.body.appendChild(para);
+        }
+        function myFunction1() {
+            const para = document.getElementsByTagName("p")[0];
+            document.body.removeChild(para);
+        }
+    </script>
+</body>
+</html>
