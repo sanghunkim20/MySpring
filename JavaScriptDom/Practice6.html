@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Click the button to make a BUTTON element with text.</p>
+    <input type="button" onClick="myFunction()" value="Try it">
+    <input type="button" onClick="myFunction1()" value="Delete it">
+    <script>
+        function myFunction() {
+            var btn = document.createElement("BUTTON");
+            btn.innerHTML = "CLICK ME";
+            document.body.appendChild(btn);
+        }
+        function myFunction1() {
+            var btn = document.getElementsByTagName("BUTTON")[0];
+            document.body.removeChild(btn);
+        }
+    </script>
+</body>
+</html>

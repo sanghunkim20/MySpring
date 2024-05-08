@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>The Element Object</h1>
+    <h2>The replaceChild() Method</h2>
+    <ol id="myList">
+        <li id="item1">Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ol>
+    <p>Click "Replace" to replace the first item in the list.</p>
+    <input type="button" onClick="myFunction()" value="Replace">
+    <script>
+        function myFunction() {
+            const newItem = document.createElement("li");
+            const textNode = document.createTextNode("Water");
+            newItem.appendChild(textNode);
+
+            const list = document.getElementById("myList");
+            list.replaceChild(newItem, list.children[0]);
+        }
+    </script>
+</body>
+</html>
