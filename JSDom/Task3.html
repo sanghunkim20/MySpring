@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function add() {
+      var first = document.getElementById("first").value;
+      var second = document.getElementById("second").value;
+      var total = parseInt(first) + parseInt(second);
+      document.getElementById("total").value = total;
+    }
+  </script>
+</head>
+<body>
+  <h2>Simple Calculator</h2>
+  <form action="" method="POST">
+    First Integer: <input type="text" name="first" id="first"><br>
+    Second Integer: <input type="text" name="second" id="second"><br>
+    Total: <input type="text" name="total" id="total"><br>
+    <input type="button" value="Add" onClick="add();"/>
+  </form>
+</body>
+</html>
