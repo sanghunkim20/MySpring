@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Get Background Color</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $(".color-box").click(function(){
+        var bgColor = $(this).css("background-color");
+            $("#colorValue").html("The computed background-color property value of this DIV element is: <b>" + bgColor + "</b>");
+        });
+    });
+
+    </script>
+    <style>
+        .color-box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #box1 { background-color: orange; }
+        #box2 { background-color: magenta; }
+        #box3 { background-color: green; }
+        #box4 { background-color: red; }
+    </style>
+</head>
+<body>
+    <div id="box1" class="color-box"></div>
+    <div id="box2" class="color-box"></div>
+    <div id="box3" class="color-box"></div>
+    <div id="box4" class="color-box"></div>
+    <p id="colorValue" >The computed background-color property value of this DIV element is:</p>
+</body>
+</html>

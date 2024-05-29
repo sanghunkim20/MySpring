@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Welcome to my personal website</h1>
+  <p>Click on the image to see about me.</p>
+  <div id = "flip"><img src="./img/img_avatar.png" height="240" width="240"></div>
+  <div id = "panel">My name is Jeong-Hun Kim. I am<br>
+  a lecturer of the course. I teach<br>
+  web and data analysis courses.</div>
+</body>
+</html>
