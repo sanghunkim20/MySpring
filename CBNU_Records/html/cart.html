@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="../css/cart.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="content">
+        <h1 style="text-align:center; color: #fff;">장바구니</h1>
+        <div class="cart-container">
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th>상품 이미지</th>
+                        <th>상품명</th>
+                        <th>가격</th>
+                        <th>합계</th>
+                        <th>삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 장바구니 항목들이 여기에 동적으로 추가될 것입니다. -->
+                </tbody>
+            </table>
+            <div class="total-container">
+                총 합계: <span id="totalPrice">₩0</span>
+            </div>
+            <div class="buy-button-container">
+                <button class="buy-button" onclick="purchaseItems()">구매하기</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+    <script type="module" src="../script/navbar.js"></script>
+    <script>
+        // 헤더를 동적으로 로드하는 함수
+        function loadHeader() {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+        }
+
+        // 푸터를 동적으로 로드하는 함수
+        function loadFooter() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+        }
+
+        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        window.onload = function() {
+            loadHeader();
+            loadFooter();
+            loadCart();
+        };
+
+        // Firebase 구성
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0tTW3h8TC2LNjVnPHsgAwAaAJ9hQ-GGU",
+            authDomain: "musicweb-67e10.firebaseapp.com",
+            projectId: "musicweb-67e10",
+            storageBucket: "musicweb-67e10.appspot.com",
+            messagingSenderId: "411216875147",
+            appId: "1:411216875147:web:6bd13f389eed0a42580e8e"
+        };
+
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Firestore에서 장바구니 데이터 가져오기
+        function loadCart() {
+            db.collection('cart').get().then(snapshot => {
+                const cartTableBody = document.querySelector('#cartTable tbody');
+                cartTableBody.innerHTML = ''; // Clear previous cart items
+                let totalPrice = 0;
+
+                snapshot.forEach(doc => {
+                    const cartItem = doc.data();
+                    const cartRow = document.createElement('tr');
+
+                    const imgCell = document.createElement('td');
+                    const itemImg = document.createElement('img');
+                    itemImg.src = cartItem.image_url;
+                    itemImg.alt = cartItem.name;
+                    imgCell.appendChild(itemImg);
+
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = cartItem.name;
+
+                    const priceCell = document.createElement('td');
+                    priceCell.textContent = `₩${cartItem.price.toLocaleString()}`;
+
+                    const totalCell = document.createElement('td');
+                    const itemTotal = cartItem.price; // Since quantity is removed, total is same as price
+                    totalCell.textContent = `₩${itemTotal.toLocaleString()}`;
+
+                    const deleteCell = document.createElement('td');
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = '삭제';
+                    deleteButton.onclick = () => deleteCartItem(doc.id);
+                    deleteCell.appendChild(deleteButton);
+
+                    cartRow.appendChild(imgCell);
+                    cartRow.appendChild(nameCell);
+                    cartRow.appendChild(priceCell);
+                    cartRow.appendChild(totalCell);
+                    cartRow.appendChild(deleteCell);
+
+                    cartTableBody.appendChild(cartRow);
+
+                    totalPrice += itemTotal;
+                });
+
+                document.getElementById('totalPrice').textContent = `₩${totalPrice.toLocaleString()}`;
+            }).catch(error => {
+                console.error('Error getting documents: ', error);
+            });
+        }
+
+        // Firestore에서 장바구니 항목 삭제
+        function deleteCartItem(id) {
+            db.collection('cart').doc(id).delete().then(() => {
+                // 항목을 삭제한 후 다시 장바구니를 로드합니다.
+                loadCart();
+            }).catch(error => {
+                console.error('Error removing document: ', error);
+            });
+        }
+
+        // 구매하기 버튼 클릭 시 장바구니 초기화
+        function purchaseItems() {
+            db.collection('cart').get().then(snapshot => {
+                const batch = db.batch();
+
+                snapshot.forEach(doc => {
+                    batch.delete(doc.ref);
+                });
+
+                return batch.commit();
+            }).then(() => {
+                alert('구매했습니다.');
+                loadCart();
+            }).catch(error => {
+                console.error('Error purchasing items: ', error);
+            });
+        }
+    </script>
+</body>
+</html>

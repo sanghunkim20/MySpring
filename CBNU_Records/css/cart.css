@@ -1,0 +1,88 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    padding-bottom: 100px; /* 푸터 높이만큼 패딩 추가 */
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
+}
+
+.all {
+    position: relative;
+    margin: 5% 0 5% 0;
+}
+
+/* Cart Container */
+.cart-container {
+    width: 100%;
+    max-width: 80%;
+    margin: auto;
+    background-color: #fff; /* White background for cart */
+    color: #333; /* Dark text color for better readability */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+td img {
+    width: 150px; /* Increase image size */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Total Container */
+.total-container {
+    text-align: right;
+    padding: 20px;
+    font-size: 18px;
+    background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
+}
+
+.total-container span {
+    font-weight: bold;
+    color: #333;
+}
+
+
+/* Buy Button */
+.buy-button-container {
+    text-align: right;
+    padding: 20px;
+}
+
+.buy-button {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buy-button:hover {
+    background-color: #333;
+}

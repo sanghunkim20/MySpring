@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>앨범 목록</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+    <!-- 스타일 시트 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="store-content">
+        <div class="store-top">
+            <h1>STORE</h1>
+            <p>오픈소스 웹소프트웨어 CBNU RECORDS팀 홈페이지-STORE</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchQuery" placeholder="앨범명 또는 아티스트명을 입력하세요">
+            <button onclick="searchAlbums()">검색</button>
+        </div>
+
+        <div class="store-container" id="albumList">
+            <!-- 앨범 항목들이 여기에 동적으로 추가될 것입니다. -->
+        </div>
+        <div id="footer"></div>
+    </div>
+    <script type="module" src="../script/navbar.js"></script>
+    <script>
+        // 헤더를 동적으로 로드하는 함수
+        function loadHeader() {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+        }
+
+        // 푸터를 동적으로 로드하는 함수
+        function loadFooter() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+        }
+
+        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        window.onload = function() {
+            loadHeader();
+            loadFooter();
+            loadAllAlbums(); // 페이지 로드 시 모든 앨범을 로드합니다.
+        };
+
+        // Firebase 구성
+        const firebaseConfig = {
+            apiKey: "AIzaSyD0tTW3h8TC2LNjVnPHsgAwAaAJ9hQ-GGU",
+            authDomain: "musicweb-67e10.firebaseapp.com",
+            projectId: "musicweb-67e10",
+            storageBucket: "musicweb-67e10.appspot.com",
+            messagingSenderId: "411216875147",
+            appId: "1:411216875147:web:6bd13f389eed0a42580e8e"
+        };
+
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // 모든 앨범을 로드하는 함수
+        function loadAllAlbums() {
+            db.collection('albums').get().then(snapshot => {
+                const albumList = document.getElementById('albumList');
+                albumList.innerHTML = ''; // 기존 앨범 목록을 지웁니다.
+                snapshot.forEach(doc => {
+                    const album = doc.data();
+                    const albumDiv = createAlbumDiv(album);
+                    albumList.appendChild(albumDiv);
+                });
+            }).catch(error => {
+                console.error('Error getting documents: ', error);
+            });
+        }
+
+        // 앨범 검색 함수
+        function searchAlbums() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            if (!query) {
+                loadAllAlbums(); // 검색어가 없으면 모든 앨범을 로드합니다.
+                return;
+            }
+
+            db.collection('albums')
+                .orderBy('album_name_lowercase')
+                .startAt(query)
+                .endAt(query + "\uf8ff")
+                .get()
+                .then(albumNameSnapshot => {
+                    db.collection('albums')
+                        .orderBy('artist_name_lowercase')
+                        .startAt(query)
+                        .endAt(query + "\uf8ff")
+                        .get()
+                        .then(artistNameSnapshot => {
+                            const albumList = document.getElementById('albumList');
+                            albumList.innerHTML = ''; // 기존 앨범 목록을 지웁니다.
+                            const combinedSnapshots = new Set();
+                            albumNameSnapshot.forEach(doc => combinedSnapshots.add(doc));
+                            artistNameSnapshot.forEach(doc => combinedSnapshots.add(doc));
+
+                            if (combinedSnapshots.size === 0) {
+                                albumList.innerHTML = '<p>일치하는 문서가 없습니다.</p>';
+                                return;
+                            }
+
+                            combinedSnapshots.forEach(doc => {
+                                const album = doc.data();
+                                const albumDiv = createAlbumDiv(album);
+                                albumList.appendChild(albumDiv);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error getting documents: ', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error getting documents: ', error);
+                });
+        }
+
+        // 앨범 Div를 생성하는 함수
+        function createAlbumDiv(album) {
+            const albumDiv = document.createElement('div');
+            albumDiv.classList.add('store-album');
+
+            // 앨범 이미지를 클릭할 때 호출되는 함수
+            albumDiv.onclick = function() {
+                window.location.href = `album_info.html?albumName=${encodeURIComponent(album.album_name)}`;
+            };
+
+            const albumImg = document.createElement('img');
+            albumImg.src = album.cover_image_url;
+
+            const albumName = document.createElement('h2');
+            albumName.textContent = album.album_name;
+
+            const albumartistname = document.createElement('p');
+            albumartistname.textContent = `Artist: ${album.artist_name}`;
+
+            const albumPrice = document.createElement('p');
+            albumPrice.textContent = `Price: ${album.price}`;
+
+            const albumDate = document.createElement('p1');
+            albumDate.textContent = album.release_date.toDate ? album.release_date.toDate().toLocaleDateString() : new Date(album.release_date.seconds * 1000).toLocaleDateString();
+
+            albumDiv.appendChild(albumImg);
+            albumDiv.appendChild(albumName);
+            albumDiv.appendChild(albumartistname)
+            albumDiv.appendChild(albumPrice);
+            albumDiv.appendChild(albumDate);
+
+            return albumDiv;
+        }
+    </script>
+</body>
+</html>

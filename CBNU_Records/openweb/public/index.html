@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음악 검색</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .album-form, .search-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 40%;
+        }
+        .album-form h2, .search-container button {
+            text-align: center;
+        }
+        .album-form label, .album-form input, .album-form textarea, .album-form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .album-form input, .album-form textarea {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .album-form button {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .album-form button:hover {
+            background-color: #555;
+        }
+        .search-container {
+            text-align: center;
+        }
+        .search-container input {
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #555;
+        }
+        #results {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #results div {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        #results img {
+            max-width: 100px;
+            margin-right: 20px;
+            vertical-align: middle;
+        }
+        #results p {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+        }
+        #results audio {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">헤더</div>
+    
+    <div class="album-form">
+        <h2>앨범 삽입</h2>
+        <label for="albumName">앨범명</label>
+        <input type="text" id="albumName" placeholder="앨범명">
+        <label for="artistName">아티스트명</label>
+        <input type="text" id="artistName" placeholder="아티스트명">
+        <label for="price">가격</label>
+        <input type="number" id="price" placeholder="가격">
+        <label for="description">음반 설명</label>
+        <textarea id="description" placeholder="음반 설명"></textarea>
+        <label for="coverImage">이미지 파일</label>
+        <input type="file" id="coverImage" accept="image/jpeg">
+        <label for="audioFile">음악 파일</label>
+        <input type="file" id="audioFile" accept="audio/*">
+        <label for="releaseDate">발매일</label>
+        <input type="date" id="releaseDate" placeholder="발매일">
+        <button onclick="addAlbum()">앨범 추가</button>
+    </div>
+    
+    <div id="footer">푸터</div>
+
+    <script>
+        // Firebase 구성
+        const firebaseConfig = {
+            apiKey: "API_KEY",
+            authDomain: "musicweb-67e10.firebaseapp.com",
+            projectId: "musicweb-67e10",
+            storageBucket: "musicweb-67e10.appspot.com",
+            messagingSenderId: "411216875147",
+            appId: "1:411216875147:web:6bd13f389eed0a42580e8e"
+        };
+
+        // Firebase 초기화
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // 앨범 추가 함수
+        async function addAlbum() {
+            const albumName = document.getElementById('albumName').value;
+            const artistName = document.getElementById('artistName').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const description = document.getElementById('description').value;
+            const coverImage = document.getElementById('coverImage').files[0];
+            const audioFile = document.getElementById('audioFile').files[0];
+            const releaseDate = document.getElementById('releaseDate').value;
+
+            if (coverImage) {
+                const coverImageUrl = await uploadFile(coverImage, 'images');
+                const audioFileUrl = audioFile ? await uploadFile(audioFile, 'audios') : null;
+                
+                db.collection('albums').add({
+                    album_name: albumName,
+                    artist_name: artistName,
+                    price: price,
+                    description: description,
+                    cover_image_url: coverImageUrl,
+                    audio_file_url: audioFileUrl,
+                    release_date: firebase.firestore.Timestamp.fromDate(new Date(releaseDate)),
+                    album_name_lowercase: albumName.toLowerCase(),
+                    artist_name_lowercase: artistName.toLowerCase()
+                })
+                .then(() => {
+                    alert('앨범이 성공적으로 추가되었습니다.');
+                })
+                .catch(error => {
+                    console.error('문서를 추가하는 중 오류가 발생했습니다: ', error);
+                });
+            } else {
+                alert('이미지를 선택해주세요.');
+            }
+        }
+
+        // 파일 업로드 함수
+        function uploadFile(file, folder) {
+            return new Promise((resolve, reject) => {
+                const storageRef = storage.ref(`${folder}/${file.name}`);
+                const uploadTask = storageRef.put(file);
+
+                uploadTask.on('state_changed', 
+                    (snapshot) => {},
+                    (error) => {
+                        console.error('파일 업로드 중 오류가 발생했습니다: ', error);
+                        reject(error);
+                    }, 
+                    () => {
+                        uploadTask.snapshot.ref.getDownloadURL().then(resolve);
+                    }
+                );
+            });
+        }
+
+    
+        // Firestore 데이터 저장 전에 album_name_lowercase 및 artist_name_lowercase 필드 추가
+        db.collection("albums").get().then(snapshot => {
+            snapshot.forEach(doc => {
+                const album = doc.data();
+                if (!album.album_name_lowercase) {
+                    db.collection('albums').doc(doc.id).update({
+                        album_name_lowercase: album.album_name.toLowerCase()
+                    });
+                }
+                if (!album.artist_name_lowercase) {
+                    db.collection('albums').doc(doc.id).update({
+                        artist_name_lowercase: album.artist_name.toLowerCase()
+                    });
+                }
+            });
+        });
+
+        // 헤더를 동적으로 로드하는 함수
+        function loadHeader() {
+            fetch('/html/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('헤더를 로드하는 중 오류가 발생했습니다:', error);
+                });
+        }
+
+        // 푸터를 동적으로 로드하는 함수
+        function loadFooter() {
+            fetch('/html/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('푸터를 로드하는 중 오류가 발생했습니다:', error);
+                });
+        }
+
+        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        window.onload = function() {
+            loadHeader();
+            loadFooter();
+        };
+    </script>
+</body>
+</html>

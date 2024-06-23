@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBNU Records</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="header"></div>
+    <div class="about-content">
+        <img src="../img/cat.png" alt="CBNU Records">
+        <h2>Introduce</h2>
+        <p>
+            
+        </p>
+    </div>
+
+    <div class="info">
+        <div>
+            
+        </div>  
+        <div>
+            <strong>Title :</strong> CBNU Records<br>
+            <strong>Course :</strong> Open Source Web Software<br>
+            <strong>Professor :</strong> Kim Jeong Hun<br>
+            <strong>Team :</strong> 15<br>
+            <strong>Leader :</strong> Kim Seung Been<br>
+            <strong>Member :</strong> Kim Sang Hun, Lee Ju Won
+            <p>CBNU Records is a music store that sells vinyl records, CDs, and cassettes. We have a wide selection of music from various genres.
+                Our store is located in the heart of the CBNU and is open 7 days a week. Come visit us and find your favorite music!</p>
+            <p>
+                CBNU 레코즈는 레코드판, CD, 카세트 등을 판매하는 음반 판매점입니다. 다양한 장르의 다양한 음악을 구매할 수 있습니다.
+                저희 매장은 충북대학교의 중심부에 위치해 있으며 주 7일 운영합니다. 저희 매장을 방문하셔서 당신이 좋아하는 음악을 찾으세요!
+            </p>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+    <script type="module" src="../script/navbar.js"></script>
+    <div id="footer"></div>
+    <script type="text/javascript">
+
+    function loadHeader() {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+        }
+
+        // 푸터를 동적으로 로드하는 함수
+        function loadFooter() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+        }
+
+        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        window.onload = function() {
+            loadHeader();
+            loadFooter();
+        };
+    </script>
+</body>
+
+</html>

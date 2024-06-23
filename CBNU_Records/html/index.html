@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBNU Records</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="header"></div>
+    <div class="all">
+    <div class="content">
+        <div class="left-column">
+            <a href="album_info.html?albumName=Hovvdy">
+                <div class="top-left">
+                    <img src="../img/Hovvdy.png" alt="Top Left Image">
+                    <div class="text">
+                        <h2>Hovvdy's new album</h2>
+                        <p>"Hovvdy," a new album by indie pop duo Hobvdy, has been released on CBNU Records.</p>
+                        <p>인디 팝 듀오인 Hovvdy의 새로운 앨범인 "Hovvdy"이 CBNU Records에 입고되었습니다.</p>
+                    </div>
+                </div>
+            </a>
+            <div class="bottom-left">
+                <img src="../img/albums.PNG" alt="Bottom Left Image">
+                <div class="text">
+                    <h2>The Best Music of 2024 So Far</h2>
+                    <p>A rolling list of our favorite albums of the year, updated somewhat frequently.</p>
+                    <p>올해의 가장 좋은 음악들을 소개합니다. 자주 업데이트됩니다.</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <a href="album_info.html?albumName=One%20Hand%20Clapping">
+                <div class="right-content">
+                    <p><strong>One Hand Clapping</strong><br><br><strong>Paul McCartney / Wings</strong><br><br>Shelved for decades and now finally released in full, Wings’ 1974 Abbey Road sessions 
+                        are intimate and exploratory, showcasing a seldom heard, anything-goes side of the former Beatle. </p> 
+                    <img src="../img/Onehandclapping.png" alt="1 Right Image">
+                </div>
+            </a>
+            <a href="album_info.html?albumName=Why%20Lawd%3F">
+                <div class="right-content">
+                    <p><strong>Why Lawd?</strong><br><br><strong>NxWorries</strong><br><br>Anderson .Paak and Knxwledge’s sly, smooth-talking rap&B sounds older and wiser these days. The duo’s 
+                        stellar second album layers doubt and insecurity into jet-setting antics and featherbed-plush beats. </p> 
+                    <img src="../img/whylawd.png" alt="2 Right Image">
+                </div>
+            </a>
+            <a href="album_info.html?albumName=boy">
+                <div class="right-content">
+                    <p><strong>boy</strong><br><br><strong>2hollis</strong><br><br>At a time when dance music is pop and pop is rap and rap is emo and everything is electronic, 
+                        the Los Angeles-based artist synthesizes it all into a gaudy yet distinctive sound. </p> 
+                    <img src="../img/2hollis.png" alt="2 Right Image">
+                </div>
+            </a>
+            <a href="album_info.html?albumName=Box%20for%20Buddy%2C%20Box%20for%20Star">
+                <div class="right-content">
+                    <p><strong>Box for Buddy, Box for Star</strong><br><br><strong>This Is Lorelei</strong><br><br>On the first proper album under his solo alias, Water From Your Eyes’ Nate Amos balances self-reflection with a sly, idiosyncratic approach to DIY pop songcraft.</p> 
+                    <img src="../img/This-Is-Lorelei.png" alt="2 Right Image">
+                </div>
+            </a>
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
+    <script type="text/javascript">
+
+        function loadHeader() {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading header:', error);
+                });
+        }
+
+        // 푸터를 동적으로 로드하는 함수
+        function loadFooter() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading footer:', error);
+                });
+        }
+
+        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        window.onload = function() {
+            loadHeader();
+            loadFooter();
+        };
+    </script>
+    <script type="module" src="../script/navbar.js"></script>
+</body>
+</html>
