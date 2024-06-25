@@ -1,4 +1,4 @@
-/* General Styling */
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -16,19 +16,17 @@ body {
     margin: 5% 0 5% 0;
 }
 
-/* Cart Container */
 .cart-container {
     width: 100%;
     max-width: 80%;
     margin: auto;
-    background-color: #fff; /* White background for cart */
-    color: #333; /* Dark text color for better readability */
+    background-color: #fff; 
+    color: #333; 
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -46,13 +44,13 @@ th {
 }
 
 td img {
-    width: 150px; /* Increase image size */
+    width: 150px; 
     height: auto;
     display: block;
     margin: 0 auto;
 }
 
-/* Total Container */
+
 .total-container {
     text-align: right;
     padding: 20px;

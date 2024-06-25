@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니</title>
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     <link rel="stylesheet" href="../css/cart.css">
@@ -26,7 +25,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 장바구니 항목들이 여기에 동적으로 추가될 것입니다. -->
                 </tbody>
             </table>
             <div class="total-container">
@@ -65,7 +63,7 @@
                 });
         }
 
-        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        // 페이지 로드 시 헤더와 푸터를 로드
         window.onload = function() {
             loadHeader();
             loadFooter();
@@ -90,7 +88,7 @@
         function loadCart() {
             db.collection('cart').get().then(snapshot => {
                 const cartTableBody = document.querySelector('#cartTable tbody');
-                cartTableBody.innerHTML = ''; // Clear previous cart items
+                cartTableBody.innerHTML = ''; 
                 let totalPrice = 0;
 
                 snapshot.forEach(doc => {
@@ -110,7 +108,7 @@
                     priceCell.textContent = `₩${cartItem.price.toLocaleString()}`;
 
                     const totalCell = document.createElement('td');
-                    const itemTotal = cartItem.price; // Since quantity is removed, total is same as price
+                    const itemTotal = cartItem.price; 
                     totalCell.textContent = `₩${itemTotal.toLocaleString()}`;
 
                     const deleteCell = document.createElement('td');
@@ -139,7 +137,7 @@
         // Firestore에서 장바구니 항목 삭제
         function deleteCartItem(id) {
             db.collection('cart').doc(id).delete().then(() => {
-                // 항목을 삭제한 후 다시 장바구니를 로드합니다.
+                // 항목을 삭제한 후 다시 장바구니를 로드
                 loadCart();
             }).catch(error => {
                 console.error('Error removing document: ', error);

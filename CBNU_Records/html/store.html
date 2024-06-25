@@ -26,7 +26,6 @@
         </div>
 
         <div class="store-container" id="albumList">
-            <!-- 앨범 항목들이 여기에 동적으로 추가될 것입니다. -->
         </div>
         <div id="footer"></div>
     </div>
@@ -56,11 +55,11 @@
                 });
         }
 
-        // 페이지 로드 시 헤더와 푸터를 로드합니다.
+        // 페이지 로드 시 헤더와 푸터를 로드
         window.onload = function() {
             loadHeader();
             loadFooter();
-            loadAllAlbums(); // 페이지 로드 시 모든 앨범을 로드합니다.
+            loadAllAlbums(); // 페이지 로드 시 모든 앨범을 로드
         };
 
         // Firebase 구성
@@ -82,7 +81,7 @@
         function loadAllAlbums() {
             db.collection('albums').get().then(snapshot => {
                 const albumList = document.getElementById('albumList');
-                albumList.innerHTML = ''; // 기존 앨범 목록을 지웁니다.
+                albumList.innerHTML = '';
                 snapshot.forEach(doc => {
                     const album = doc.data();
                     const albumDiv = createAlbumDiv(album);
@@ -97,7 +96,7 @@
         function searchAlbums() {
             const query = document.getElementById('searchQuery').value.toLowerCase();
             if (!query) {
-                loadAllAlbums(); // 검색어가 없으면 모든 앨범을 로드합니다.
+                loadAllAlbums(); 
                 return;
             }
 
@@ -114,7 +113,7 @@
                         .get()
                         .then(artistNameSnapshot => {
                             const albumList = document.getElementById('albumList');
-                            albumList.innerHTML = ''; // 기존 앨범 목록을 지웁니다.
+                            albumList.innerHTML = ''; 
                             const combinedSnapshots = new Set();
                             albumNameSnapshot.forEach(doc => combinedSnapshots.add(doc));
                             artistNameSnapshot.forEach(doc => combinedSnapshots.add(doc));
